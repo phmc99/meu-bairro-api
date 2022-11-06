@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    command: npm run dev
+    ports:
+      - 3000:3000
+    environment:
+      - NODE_ENV=local
+    volumes:
+      - .:/code
+
+  mongodb:
+    image : mongo
+    container_name: mongodb
+    environment:
+    - PUID=1000
+    - PGID=1000
+    volumes:
+    - /home/mongodb/database:/data/db
+    ports:
+    - 27017:27017
+    restart: unless-stopped
