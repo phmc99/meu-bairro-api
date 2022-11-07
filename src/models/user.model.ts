@@ -1,6 +1,6 @@
-import { model } from "mongoose";
-import mongoose from "../database";
-import { IUser } from "./interfaces";
+import { model } from 'mongoose'
+import mongoose from '../database'
+import { IUser } from './interfaces'
 
 const userSchema = new mongoose.Schema<IUser>(
   {
@@ -9,11 +9,11 @@ const userSchema = new mongoose.Schema<IUser>(
     email: { type: String, required: true },
     phone: { type: String, required: true },
     password: { type: String, required: true },
-    superUser: { type: Boolean, required: true },
+    superUser: { type: Boolean, required: true }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-export const User = model<IUser>("User", userSchema);
+export const User = model<IUser>('User', userSchema)

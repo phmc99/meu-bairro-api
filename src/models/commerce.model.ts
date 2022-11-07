@@ -1,6 +1,6 @@
-import { model } from "mongoose";
-import mongoose from "../database";
-import { ICommerce } from "./interfaces";
+import { model } from 'mongoose'
+import mongoose from '../database'
+import { ICommerce } from './interfaces'
 
 const commerceSchema = new mongoose.Schema<ICommerce>(
   {
@@ -9,13 +9,13 @@ const commerceSchema = new mongoose.Schema<ICommerce>(
     address: { type: Object, required: true },
     contact: { type: Object, required: true },
     images: { type: Array, required: true, default: [] },
-    logo: { type: String, required: true, default: "" },
+    logo: { type: String, required: true, default: '' },
     feedbacks: { type: Array, required: true, default: [] },
-    active: { type: Boolean, required: true, default: true },
+    active: { type: Boolean, required: true, default: true }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
-);
+)
 
-export const Commerce = model<ICommerce>("Commerce", commerceSchema);
+export const Commerce = model<ICommerce>('Commerce', commerceSchema)
