@@ -1,19 +1,32 @@
-import { Request, Response } from 'express'
+import { NextFunction, Request, Response } from 'express'
+import mongoose from 'mongoose'
 
-import appError from '../errors/app.error'
+import AppError from '../errors/app.error'
 
-export const errorHandler = (error: Error, req: Request, res: Response) => {
-  if (error instanceof appError) {
+export const errorHandler = (
+  error: Error,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (error instanceof AppError) {
     return res.status(error.statusCode).json({
-      status: 'error',
+      status: 'Error',
       message: error.message
+    })
+  }
+
+  if (error instanceof mongoose.Error.ValidationError) {
+    return res.status(400).json({
+      status: 'Field error',
+      fields: error.errors
     })
   }
 
   console.log(error)
 
   return res.status(500).json({
-    status: 'error',
+    status: 'General error',
     message: 'Internal server error'
   })
 }

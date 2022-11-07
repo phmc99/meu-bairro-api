@@ -1,4 +1,4 @@
-class appError {
+class AppError {
   public readonly message: string
   public readonly statusCode: number
 
@@ -8,4 +8,4 @@ class appError {
   }
 }
 
-export default appError
+export default AppError
