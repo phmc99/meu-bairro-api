@@ -8,6 +8,8 @@ services:
       - 3000:3000
     environment:
       - NODE_ENV=local
+      - MONGO_URI=mongodb://localhost:27017
+
     volumes:
       - .:/code
 
