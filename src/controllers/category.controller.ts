@@ -1,54 +1,69 @@
 import { NextFunction, Request, Response } from 'express'
+import {
+  createCategoryService,
+  deleteCategoryService,
+  listCategoriesService,
+  updateCategoryService
+} from '../services/category.service'
 
-export const createCategory = (
+export const createCategory = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { body } = req
+    const { name, description } = req.body
 
-    console.log(body)
+    const response = await createCategoryService({ name, description })
 
-    res.status(201).json({ created: body })
+    res.status(201).json(response)
   } catch (error) {
     next(error)
   }
 }
 
-export const listCategories = (
+export const listCategories = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json({ categories: [] })
+    const response = await listCategoriesService()
+
+    res.json({ categories: response })
   } catch (error) {
     next(error)
   }
 }
 
-export const updateCategory = (
+export const updateCategory = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { id } = req.params
-    res.json({ updateCategory: id })
+    const { name, description } = req.body
+
+    const response = await updateCategoryService(id, { name, description })
+
+    res.json(response)
   } catch (error) {
     next(error)
   }
 }
 
-export const deleteCategory = (
+export const deleteCategory = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { id } = req.params
-    res.json({ deleteCategory: id })
+
+    const response = await deleteCategoryService(id)
+
+    res.status(204).json(response)
   } catch (error) {
     next(error)
   }
