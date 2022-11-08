@@ -31,9 +31,10 @@ export const listUsers = async (
   next: NextFunction
 ) => {
   try {
-    const response = await listUsersService()
+    const { page, perPage } = req.query
+    const response = await listUsersService(Number(page), Number(perPage))
 
-    res.json({ users: response })
+    res.json(response)
   } catch (error) {
     next(error)
   }

@@ -1,7 +1,7 @@
 import AppError from '../errors/app.error'
 import { IUser } from '../models/interfaces'
 import { User } from '../models/user.model'
-import { generateDate } from '../utils'
+import { generateDate, paginateData } from '../utils'
 import { isUserExistent, isValidEmail, isValidPhone } from '../utils/user.util'
 
 interface UpdateBody {
@@ -22,19 +22,27 @@ export const createUserService = async (body: IUser) => {
   return newUser
 }
 
-export const listUsersService = async () => {
+export const listUsersService = async (page: number, perPage: number) => {
   const users = await User.find()
 
-  return users
+  return paginateData(users, page, perPage)
 }
 
 export const listUserByIdService = async (id: string) => {
+  if (!await isUserExistent(id)) {
+    throw new AppError('Usuário não encontrado', 400)
+  }
+
   const user = await User.findById(id)
 
   return user
 }
 
 export const updateUserService = async (id: string, body: UpdateBody) => {
+  if (!await isUserExistent(id)) {
+    throw new AppError('Usuário não encontrado', 400)
+  }
+
   if (body.phone == null) {
     throw new AppError('Campo "phone" não informado', 400)
   }
