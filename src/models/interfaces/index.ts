@@ -11,12 +11,12 @@ export interface IUser {
 
 interface IAddress {
   cep: string
-  address: string
-  district: string
+  state: string
+  neighborhood: string
+  street: string
+  number: string
+  complement: string
   city: string
-  uf: string
-  number?: number
-  complement?: string
 }
 
 interface IContact {
@@ -28,7 +28,11 @@ interface IContact {
 }
 
 interface IFeedback {
-  user: IUser
+  user: {
+    _id: string
+    firstName: string
+    lastName: string
+  }
   comment: string
   rate: number
 }
