@@ -45,7 +45,9 @@ export interface ICommerce {
   images?: string[]
   logo?: string
   feedbacks?: IFeedback[]
-  active: boolean
+  active?: boolean
+  createdAt?: string
+  updatedAt?: string
 }
 
 export interface ICategory {

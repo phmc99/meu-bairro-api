@@ -1,5 +1,6 @@
 import { model } from 'mongoose'
 import mongoose from '../database'
+import { generateDate } from '../utils'
 import { ICommerce } from './interfaces'
 
 const commerceSchema = new mongoose.Schema<ICommerce>(
@@ -8,13 +9,12 @@ const commerceSchema = new mongoose.Schema<ICommerce>(
     category: { type: String, required: true },
     address: { type: Object, required: true },
     contact: { type: Object, required: true },
-    images: { type: Array, required: true, default: [] },
-    logo: { type: String, required: true, default: '' },
-    feedbacks: { type: Array, required: true, default: [] },
-    active: { type: Boolean, required: true, default: true }
-  },
-  {
-    timestamps: true
+    images: { type: Array, default: [] },
+    logo: { type: String, default: '' },
+    feedbacks: { type: Array, default: [] },
+    active: { type: Boolean, default: true },
+    createdAt: { type: String, default: generateDate() },
+    updatedAt: { type: String, default: generateDate() }
   }
 )
 

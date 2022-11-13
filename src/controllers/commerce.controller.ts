@@ -1,67 +1,88 @@
 import { NextFunction, Request, Response } from 'express'
+import {
+  createCommerceService,
+  deleteCommerceService,
+  listCommerceByIdService,
+  listCommercesService,
+  updateCommerceService
+} from '../services/commerce.service'
 
-export const createCommerce = (
+export const createCommerce = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    const { body } = req
+    const { name, category, address, contact } = req.body
 
-    console.log(body)
+    const commerceBody = { name, category, address, contact }
 
-    res.status(201).json({ created: body })
+    const response = await createCommerceService(commerceBody)
+
+    res.status(201).json(response)
   } catch (error) {
     next(error)
   }
 }
 
-export const listCommerces = (
+export const listCommerces = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
-    res.json({ commerces: [] })
+    const { page, perPage } = req.query
+    const response = await listCommercesService(Number(page), Number(perPage))
+
+    res.json(response)
   } catch (error) {
     next(error)
   }
 }
 
-export const listCommerceById = (
+export const listCommerceById = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { id } = req.params
-    res.json({ commerce: id })
+
+    const response = await listCommerceByIdService(id)
+
+    res.json({ commerce: response })
   } catch (error) {
     next(error)
   }
 }
 
-export const updateCommerce = (
+export const updateCommerce = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { id } = req.params
-    res.json({ updateCommerce: id })
+
+    const response = await updateCommerceService(id, req.body)
+
+    res.json({ updateCommerce: response })
   } catch (error) {
     next(error)
   }
 }
 
-export const deleteCommerce = (
+export const deleteCommerce = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
   try {
     const { id } = req.params
-    res.json({ deleteCommerce: id })
+
+    const response = await deleteCommerceService(id)
+
+    res.status(204).json(response)
   } catch (error) {
     next(error)
   }
