@@ -27,7 +27,8 @@ interface IContact {
   email: string
 }
 
-interface IFeedback {
+export interface IFeedback {
+  commerce: string
   user: {
     _id: string
     firstName: string
@@ -35,6 +36,8 @@ interface IFeedback {
   }
   comment: string
   rate: number
+  createdAt?: string
+  updatedAt?: string
 }
 
 export interface ICommerce {

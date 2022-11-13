@@ -9,6 +9,7 @@ import {
 import {
   createFeedback,
   deleteFeedback,
+  listFeedbacks,
   updateFeedback
 } from '../controllers/feedback.controller'
 import { validate } from '../middlewares/validation.middleware'
@@ -24,8 +25,9 @@ export const commerceRouter = () => {
   router.patch('/:id', updateCommerce)
   router.delete('/:id', deleteCommerce)
   router.post('/:id/feedback', validate(feedbackSchema), createFeedback)
-  router.patch('/:id/feedback', updateFeedback)
-  router.delete('/:id/feedback', deleteFeedback)
+  router.get('/:id/feedback', listFeedbacks)
+  router.patch('/feedback/:id', updateFeedback)
+  router.delete('/feedback/:id', deleteFeedback)
 
   return router
 }
