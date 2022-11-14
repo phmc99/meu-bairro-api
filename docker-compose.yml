@@ -9,6 +9,7 @@ services:
     environment:
       - NODE_ENV=local
       - MONGO_URI=mongodb://localhost:27017
+      - SECRET=anything
 
     volumes:
       - .:/code
