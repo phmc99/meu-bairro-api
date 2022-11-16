@@ -12,6 +12,7 @@ import {
   listFeedbacks,
   updateFeedback
 } from '../controllers/feedback.controller'
+import { isSuperUser } from '../middlewares/auth.middleware'
 import { validate } from '../middlewares/validation.middleware'
 import { commerceSchema } from '../models/schemas/commerce.schema'
 import { feedbackSchema } from '../models/schemas/feedback.schema'
@@ -19,6 +20,7 @@ import { feedbackSchema } from '../models/schemas/feedback.schema'
 const router = Router()
 
 export const commerceRouter = () => {
+  router.use(isSuperUser)
   router.post('', validate(commerceSchema), createCommerce)
   router.get('', listCommerces)
   router.get('/:id', listCommerceById)
