@@ -10,7 +10,7 @@ Essa API foi desenvolvida para realizar operações CRUD do app [Meu Bairro](htt
 
 ## 🔨 Implementações
 
-- [] CRUD de usuários e comércios
+- [X] CRUD de usuários e comércios
 - [] Envio de e-mail
 - [] Notificações Push
 
@@ -19,9 +19,13 @@ Essa API foi desenvolvida para realizar operações CRUD do app [Meu Bairro](htt
 
 - [X] Node/Express
 - [X] Typescript
-- [] MongoDB
+- [X] MongoDB
 
 
+##  📁 Padrões
+- SOLID
+- [Bulletproof Node.js project architecture](https://softwareontheroad.com/ideal-nodejs-project-structure/)
+-  Conjunto de restrições de arquitetura REST
 <!-- ## 🌐 Deploy
 
 [Link do deploy]() -->
