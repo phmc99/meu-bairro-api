@@ -23,7 +23,7 @@ export const isSuperUser = async (
     async (err: any, decoded: any) => {
       try {
         if (err != null) {
-          throw new AppError('Token inválido', 400)
+          throw new AppError('Token inválido', 401)
         }
 
         const user = await User.findById(decoded.id)
@@ -33,7 +33,7 @@ export const isSuperUser = async (
         }
 
         if (user.superUser === false) {
-          throw new AppError('Usuário não tem permissão', 401)
+          throw new AppError('Usuário não tem permissão', 403)
         }
 
         next()
