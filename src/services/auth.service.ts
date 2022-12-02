@@ -23,7 +23,7 @@ export const superUserLoginService = async (
   const token = jwt.sign(
     { id: user.id, email: user.email, isAdm: user.superUser },
     process.env.SECRET as string,
-    { expiresIn: 60 }
+    { expiresIn: '1d' }
   )
 
   return { token }
