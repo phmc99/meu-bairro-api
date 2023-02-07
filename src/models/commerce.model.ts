@@ -7,7 +7,7 @@ const commerceSchema = new mongoose.Schema<ICommerce>(
   {
     name: { type: String, required: true },
     category: { type: String, required: true },
-    address: { type: Object, required: true },
+    address: { type: Object },
     contact: { type: Object, required: true },
     images: { type: Array, default: [] },
     logo: { type: String, default: '' },

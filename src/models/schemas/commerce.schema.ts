@@ -4,14 +4,14 @@ export const commerceSchema = yup.object().shape({
   name: yup.string().required(),
   category: yup.string().required(),
   address: yup.object({
-    cep: yup.string().required(),
-    state: yup.string().required(),
-    neighborhood: yup.string().required(),
-    street: yup.string().required(),
-    number: yup.string().required(),
-    complement: yup.string().required(),
-    city: yup.string().required()
-  }).required(),
+    cep: yup.string(),
+    state: yup.string(),
+    neighborhood: yup.string(),
+    street: yup.string(),
+    number: yup.string(),
+    complement: yup.string(),
+    city: yup.string()
+  }),
   contact: yup.object({
     phone: yup.string().required(),
     email: yup.string().email().required(),
