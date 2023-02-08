@@ -5,6 +5,9 @@
   "repository": "https://github.com/phmc99/meu-bairro-api.git",
   "author": "Pedro Costa",
   "license": "MIT",
+  "engines": {
+    "node": "18"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node dist/server.js",
