@@ -56,4 +56,5 @@ export interface ICommerce {
 export interface ICategory {
   name: string
   description: string
+  imgUrl: string
 }

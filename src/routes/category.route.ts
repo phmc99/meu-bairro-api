@@ -12,11 +12,10 @@ import { categorySchema } from '../models/schemas/category.schema'
 const router = Router()
 
 export const categoryRouter = () => {
-  router.use(isSuperUser)
-  router.post('', validate(categorySchema), createCategory)
+  router.post('', validate(categorySchema), isSuperUser, createCategory)
   router.get('', listCategories)
-  router.patch('/:id', validate(categorySchema), updateCategory)
-  router.delete('/:id', deleteCategory)
+  router.patch('/:id', validate(categorySchema), isSuperUser, updateCategory)
+  router.delete('/:id', isSuperUser, deleteCategory)
 
   return router
 }

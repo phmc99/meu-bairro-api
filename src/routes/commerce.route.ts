@@ -20,12 +20,11 @@ import { feedbackSchema } from '../models/schemas/feedback.schema'
 const router = Router()
 
 export const commerceRouter = () => {
-  router.use(isSuperUser)
-  router.post('', validate(commerceSchema), createCommerce)
+  router.post('', validate(commerceSchema), isSuperUser, createCommerce)
   router.get('', listCommerces)
   router.get('/:id', listCommerceById)
-  router.patch('/:id', updateCommerce)
-  router.delete('/:id', deleteCommerce)
+  router.patch('/:id', isSuperUser, updateCommerce)
+  router.delete('/:id', isSuperUser, deleteCommerce)
   router.post('/:id/feedback', validate(feedbackSchema), createFeedback)
   router.get('/:id/feedback', listFeedbacks)
   router.patch('/feedback/:id', updateFeedback)

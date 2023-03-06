@@ -12,9 +12,9 @@ export const createCategory = async (
   next: NextFunction
 ) => {
   try {
-    const { name, description } = req.body
+    const { name, description, imgUrl } = req.body
 
-    const response = await createCategoryService({ name, description })
+    const response = await createCategoryService({ name, description, imgUrl })
 
     res.status(201).json(response)
   } catch (error) {
@@ -43,9 +43,11 @@ export const updateCategory = async (
 ) => {
   try {
     const { id } = req.params
-    const { name, description } = req.body
+    const { name, description, imgUrl } = req.body
 
-    const response = await updateCategoryService(id, { name, description })
+    const response = await updateCategoryService(
+      id, { name, description, imgUrl }
+    )
 
     res.json(response)
   } catch (error) {
