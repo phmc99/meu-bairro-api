@@ -4,6 +4,8 @@ import {
   deleteCommerce,
   listCommerceById,
   listCommerces,
+  listCommercesByCategory,
+  listNewCommerces,
   updateCommerce
 } from '../controllers/commerce.controller'
 import {
@@ -22,6 +24,8 @@ const router = Router()
 export const commerceRouter = () => {
   router.post('', validate(commerceSchema), isSuperUser, createCommerce)
   router.get('', listCommerces)
+  router.get('/categories', listCommercesByCategory)
+  router.get('/new', listNewCommerces)
   router.get('/:id', listCommerceById)
   router.patch('/:id', isSuperUser, updateCommerce)
   router.delete('/:id', isSuperUser, deleteCommerce)

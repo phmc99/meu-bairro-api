@@ -3,7 +3,9 @@ import {
   createCommerceService,
   deleteCommerceService,
   listCommerceByIdService,
+  listCommercesByCategoryService,
   listCommercesService,
+  listNewCommercesService,
   updateCommerceService
 } from '../services/commerce.service'
 
@@ -33,6 +35,40 @@ export const listCommerces = async (
   try {
     const { page, perPage } = req.query
     const response = await listCommercesService(Number(page), Number(perPage))
+
+    res.json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const listNewCommerces = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { page, perPage } = req.query
+    const response = await listNewCommercesService(
+      Number(page), Number(perPage)
+    )
+
+    res.json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const listCommercesByCategory = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { page, perPage, category } = req.query
+    const response = await listCommercesByCategoryService(
+      { page: Number(page), perPage: Number(perPage), category }
+    )
 
     res.json(response)
   } catch (error) {
