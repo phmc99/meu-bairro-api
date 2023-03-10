@@ -66,9 +66,9 @@ export const listCommercesByCategory = async (
   next: NextFunction
 ) => {
   try {
-    const { page, perPage, category } = req.query
+    const { page, perPage, value } = req.query
     const response = await listCommercesByCategoryService(
-      { page: Number(page), perPage: Number(perPage), category }
+      { page: Number(page), perPage: Number(perPage), value }
     )
 
     res.json(response)

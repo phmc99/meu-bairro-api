@@ -5,14 +5,7 @@ import { ICommerce } from '../models/interfaces'
 import { generateDate, paginateData } from '../utils'
 import { isCommerceExistent } from '../utils/commerce.util'
 
-interface IListByCommerce {
-  page: number
-  perPage: number
-  // eslint-disable-next-line max-len
-  category: string | QueryString.ParsedQs | string[] | QueryString.ParsedQs[] | undefined
-}
-
-interface IListByNeighborhood {
+interface IListWithFilter {
   page: number
   perPage: number
   // eslint-disable-next-line max-len
@@ -32,18 +25,14 @@ export const listCommercesService = async (page: number, perPage: number) => {
 }
 
 export const listCommercesByCategoryService = async (
-  { page, perPage, category }: IListByCommerce
+  { page, perPage, value }: IListWithFilter
 ) => {
-  if (category != null) {
-    const commerces = await Commerce.find({ category })
-    return paginateData(commerces, page, perPage)
-  } else {
-    throw new AppError('Algo de errado aconteceu', 400)
-  }
+  const commerces = await Commerce.find({ category: value })
+  return paginateData(commerces, page, perPage)
 }
 
 export const listCommercesByNeighborhoodService = async (
-  { page, perPage, value }: IListByNeighborhood
+  { page, perPage, value }: IListWithFilter
 ) => {
   const commerces = await Commerce.find()
 

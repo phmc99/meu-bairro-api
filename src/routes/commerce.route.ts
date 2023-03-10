@@ -25,7 +25,7 @@ const router = Router()
 export const commerceRouter = () => {
   router.post('', validate(commerceSchema), isSuperUser, createCommerce)
   router.get('', listCommerces)
-  router.get('/categories', listCommercesByCategory)
+  router.get('/category', listCommercesByCategory)
   router.get('/neighborhood', listCommercesByNeighborhood)
   router.get('/new', listNewCommerces)
   router.get('/:id', listCommerceById)
