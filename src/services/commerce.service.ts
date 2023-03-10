@@ -12,6 +12,13 @@ interface IListByCommerce {
   category: string | QueryString.ParsedQs | string[] | QueryString.ParsedQs[] | undefined
 }
 
+interface IListByNeighborhood {
+  page: number
+  perPage: number
+  // eslint-disable-next-line max-len
+  value: string | QueryString.ParsedQs | string[] | QueryString.ParsedQs[] | undefined
+}
+
 export const createCommerceService = async (body: ICommerce) => {
   const newCommerce = await Commerce.create(body)
 
@@ -33,6 +40,27 @@ export const listCommercesByCategoryService = async (
   } else {
     throw new AppError('Algo de errado aconteceu', 400)
   }
+}
+
+export const listCommercesByNeighborhoodService = async (
+  { page, perPage, value }: IListByNeighborhood
+) => {
+  const commerces = await Commerce.find()
+
+  if (value == null) {
+    return paginateData(commerces, page, perPage)
+  }
+
+  value = value.toLocaleString().toLowerCase()
+  const filtredCommerces = commerces.filter(
+    (item) => item.address.neighborhood.toLowerCase() === value
+  )
+
+  if (filtredCommerces.length !== 0) {
+    return paginateData(filtredCommerces, page, perPage)
+  }
+
+  return paginateData(commerces, page, perPage)
 }
 
 export const listNewCommercesService = async (
