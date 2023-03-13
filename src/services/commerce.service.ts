@@ -3,7 +3,7 @@ import AppError from '../errors/app.error'
 import { Commerce } from '../models/commerce.model'
 import { ICommerce } from '../models/interfaces'
 import { generateDate, paginateData } from '../utils'
-import { isCommerceExistent } from '../utils/commerce.util'
+import { listFeedbacksService } from './feedback.service'
 
 interface IListWithFilter {
   page: number
@@ -63,20 +63,22 @@ export const listNewCommercesService = async (
 }
 
 export const listCommerceByIdService = async (id: string) => {
-  if (!await isCommerceExistent(id)) {
+  const commerce = await Commerce.findById(id)
+
+  if (commerce == null) {
     throw new AppError('Comércio não encontrado', 404)
   }
 
-  const commerce = await Commerce.findById(id)
+  const { feedbacks } = await listFeedbacksService(id)
+
+  if (feedbacks != null) {
+    commerce.feedbacks = feedbacks
+  }
 
   return commerce
 }
 
 export const updateCommerceService = async (id: string, body: object) => {
-  if (!await isCommerceExistent(id)) {
-    throw new AppError('Comércio não encontrado', 404)
-  }
-
   const updatedCommerce = await Commerce.findByIdAndUpdate(id, {
     ...body,
     updatedAt: generateDate(),
@@ -85,14 +87,19 @@ export const updateCommerceService = async (id: string, body: object) => {
     returnOriginal: false
   })
 
+  if (updatedCommerce == null) {
+    throw new AppError('Comércio não encontrado', 404)
+  }
+
   return updatedCommerce
 }
 
 export const deleteCommerceService = async (id: string) => {
-  if (!await isCommerceExistent(id)) {
+  const deletedCommerce = await Commerce.findByIdAndRemove(id)
+
+  if (deletedCommerce == null) {
     throw new AppError('Comércio não encontrado', 404)
   }
-  await Commerce.findByIdAndRemove(id)
 
   return { message: 'Comércio deletado' }
 }
