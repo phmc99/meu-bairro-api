@@ -12,7 +12,6 @@ export interface IUser {
 interface IAddress {
   cep: string
   state: string
-  neighborhood: string
   street: string
   number: string
   complement: string
@@ -44,10 +43,12 @@ export interface ICommerce {
   name: string
   category: string
   address: IAddress
+  neighborhood: string
   contact: IContact
   images?: string[]
   logo?: string
   feedbacks?: IFeedback[]
+  totalRate?: number
   active?: boolean
   createdAt?: string
   updatedAt?: string

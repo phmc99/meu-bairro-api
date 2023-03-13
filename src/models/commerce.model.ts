@@ -8,10 +8,12 @@ const commerceSchema = new mongoose.Schema<ICommerce>(
     name: { type: String, required: true },
     category: { type: String, required: true },
     address: { type: Object },
+    neighborhood: { type: String, required: true },
     contact: { type: Object, required: true },
     images: { type: Array, default: [] },
     logo: { type: String, default: '' },
     feedbacks: { type: Array, default: [] },
+    totalRate: { type: Number, default: 0 },
     active: { type: Boolean, default: true },
     createdAt: { type: String, default: generateDate() },
     updatedAt: { type: String, default: generateDate() }

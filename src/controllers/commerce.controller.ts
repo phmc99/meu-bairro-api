@@ -16,9 +16,15 @@ export const createCommerce = async (
   next: NextFunction
 ) => {
   try {
-    const { name, category, address, contact } = req.body
+    const { name, category, address, contact, neighborhood } = req.body
 
-    const commerceBody = { name, category, address, contact }
+    const commerceBody = {
+      name,
+      category,
+      address,
+      contact,
+      neighborhood
+    }
 
     const response = await createCommerceService(commerceBody)
 

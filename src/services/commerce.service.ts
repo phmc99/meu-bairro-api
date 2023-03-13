@@ -42,7 +42,7 @@ export const listCommercesByNeighborhoodService = async (
 
   value = value.toLocaleString().toLowerCase()
   const filtredCommerces = commerces.filter(
-    (item) => item.address.neighborhood.toLowerCase() === value
+    (item) => item.neighborhood.toLowerCase() === value
   )
 
   if (filtredCommerces.length !== 0) {
