@@ -9,3 +9,9 @@ export const verifyUserFeedback = async (
 
   return (userFeedback != null)
 }
+
+export const getCommerceRates = async (id: string) => {
+  const feedbacks = await Feedback.find({ commerce: id })
+  const rates = feedbacks.map((item) => item.rate)
+  return rates
+}
