@@ -22,9 +22,9 @@ export const paginateData = (data: any, page: number, perPage = 5) => {
   const dataSliced = data.slice(start, end)
 
   const previousPage =
-    page - 1 >= 1 ? page : null
+    page - 1 >= 1 ? page - 1 : null
   const nextPage =
-    end < data.length ? page : null
+    end < data.length ? page + 1 : null
 
   return {
     page,
