@@ -3,6 +3,7 @@ import { IUser } from '../models/interfaces'
 import { User } from '../models/user.model'
 import { generateDate, paginateData } from '../utils'
 import { isUserExistent, isValidEmail, isValidPhone } from '../utils/user.util'
+import jwt from 'jsonwebtoken'
 
 interface UpdateBody {
   phone: string
@@ -69,4 +70,34 @@ export const deleteUserService = async (id: string) => {
   await User.findByIdAndRemove(id)
 
   return { message: 'Usuário deletado' }
+}
+
+export const verifyTokenService = async (token: string) => {
+  if (token == null) {
+    return { isValid: false }
+  }
+
+  const verify = jwt.verify(
+    token,
+    process.env.SECRET as string,
+    async (err: any, decoded: any) => {
+      try {
+        if (err != null) {
+          return { isValid: false }
+        }
+
+        const user = await User.findById(decoded.id)
+
+        if (user == null) {
+          return { isValid: false }
+        }
+
+        return { isValid: true }
+      } catch (error) {
+        return { isValid: false }
+      }
+    }
+  )
+
+  return verify
 }

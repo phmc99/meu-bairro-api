@@ -4,7 +4,8 @@ import {
   deleteUserService,
   listUserByIdService,
   listUsersService,
-  updateUserService
+  updateUserService,
+  verifyTokenService
 } from '../services/user.service'
 
 export const createUser = async (
@@ -84,6 +85,22 @@ export const deleteUser = async (
     const response = await deleteUserService(id)
 
     res.status(204).json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const verifyToken = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { token } = req.body
+
+    const isValid = await verifyTokenService(token)
+
+    res.status(200).json(isValid)
   } catch (error) {
     next(error)
   }
