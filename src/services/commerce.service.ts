@@ -9,7 +9,10 @@ interface IListWithFilter {
   page: number
   perPage: number
   // eslint-disable-next-line max-len
-  value: string | QueryString.ParsedQs | string[] | QueryString.ParsedQs[] | undefined
+  value?: string | QueryString.ParsedQs | string[] | QueryString.ParsedQs[] | undefined
+  // eslint-disable-next-line max-len
+  neighborhood?: string | QueryString.ParsedQs | string[] | QueryString.ParsedQs[] | undefined
+
 }
 
 export const createCommerceService = async (body: ICommerce) => {
@@ -25,10 +28,25 @@ export const listCommercesService = async (page: number, perPage: number) => {
 }
 
 export const listCommercesByCategoryService = async (
-  { page, perPage, value }: IListWithFilter
+  { page, perPage, value, neighborhood }: IListWithFilter
 ) => {
   const commerces = await Commerce.find({ category: value })
-  return paginateData(commerces, page, perPage)
+
+  if (neighborhood == null ||
+    neighborhood.toLocaleString().trim() === '') {
+    return paginateData(commerces, page, perPage)
+  }
+
+  neighborhood = neighborhood.toLocaleString()
+  const filtredCommerces = commerces.filter(
+    (item) => item.neighborhood === neighborhood
+  )
+
+  const filterOthers = commerces.filter(
+    (item) => item.neighborhood !== neighborhood
+  )
+
+  return paginateData([...filtredCommerces, ...filterOthers], page, perPage)
 }
 
 export const listCommercesByNeighborhoodService = async (
@@ -40,9 +58,9 @@ export const listCommercesByNeighborhoodService = async (
     return paginateData(commerces, page, perPage)
   }
 
-  value = value.toLocaleString().toLowerCase()
+  value = value.toLocaleString()
   const filtredCommerces = commerces.filter(
-    (item) => item.neighborhood.toLowerCase() === value
+    (item) => item.neighborhood === value
   )
 
   if (filtredCommerces.length !== 0) {
@@ -53,13 +71,26 @@ export const listCommercesByNeighborhoodService = async (
 }
 
 export const listNewCommercesService = async (
-  page: number, perPage: number
+  { page, perPage, neighborhood }: IListWithFilter
 ) => {
   const commerces = await Commerce.find({})
-    .sort({ createdAt: 'asc' })
+    .sort({ createdAt: 'desc' })
     .exec()
 
-  return paginateData(commerces, page, perPage)
+  if (neighborhood == null ||
+      neighborhood.toLocaleString().trim() === '') {
+    return paginateData(commerces, page, perPage)
+  }
+
+  const filtredCommerces = commerces.filter(
+    (item) => item.neighborhood === neighborhood
+  )
+
+  const filterOthers = commerces.filter(
+    (item) => item.neighborhood !== neighborhood
+  )
+
+  return paginateData([...filtredCommerces, ...filterOthers], page, perPage)
 }
 
 export const listCommerceByIdService = async (id: string) => {

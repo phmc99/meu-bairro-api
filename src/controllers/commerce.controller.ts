@@ -55,9 +55,9 @@ export const listNewCommerces = async (
   next: NextFunction
 ) => {
   try {
-    const { page, perPage } = req.query
+    const { page, perPage, neighborhood } = req.query
     const response = await listNewCommercesService(
-      Number(page), Number(perPage)
+      { page: Number(page), perPage: Number(perPage), neighborhood }
     )
 
     res.json(response)
@@ -72,9 +72,9 @@ export const listCommercesByCategory = async (
   next: NextFunction
 ) => {
   try {
-    const { page, perPage, value } = req.query
+    const { page, perPage, value, neighborhood } = req.query
     const response = await listCommercesByCategoryService(
-      { page: Number(page), perPage: Number(perPage), value }
+      { page: Number(page), perPage: Number(perPage), value, neighborhood }
     )
 
     res.json(response)
