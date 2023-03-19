@@ -78,7 +78,30 @@ export const listNewCommercesService = async (
     .exec()
 
   if (neighborhood == null ||
-      neighborhood.toLocaleString().trim() === '') {
+    neighborhood.toLocaleString().trim() === '') {
+    return paginateData(commerces, page, perPage)
+  }
+
+  const filtredCommerces = commerces.filter(
+    (item) => item.neighborhood === neighborhood
+  )
+
+  const filterOthers = commerces.filter(
+    (item) => item.neighborhood !== neighborhood
+  )
+
+  return paginateData([...filtredCommerces, ...filterOthers], page, perPage)
+}
+
+export const listBestRatedCommercesService = async (
+  { page, perPage, neighborhood }: IListWithFilter
+) => {
+  const commerces = await Commerce.find({})
+    .sort({ totalRate: 'desc' })
+    .exec()
+
+  if (neighborhood == null ||
+    neighborhood.toLocaleString().trim() === '') {
     return paginateData(commerces, page, perPage)
   }
 

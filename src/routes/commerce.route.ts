@@ -2,6 +2,7 @@ import { Router } from 'express'
 import {
   createCommerce,
   deleteCommerce,
+  listBestRatedCommerces,
   listCommerceById,
   listCommerces,
   listCommercesByCategory,
@@ -28,6 +29,7 @@ export const commerceRouter = () => {
   router.get('/category', listCommercesByCategory)
   router.get('/neighborhood', listCommercesByNeighborhood)
   router.get('/new', listNewCommerces)
+  router.get('/bestrated', listBestRatedCommerces)
   router.get('/:id', listCommerceById)
   router.patch('/:id', isSuperUser, updateCommerce)
   router.delete('/:id', isSuperUser, deleteCommerce)

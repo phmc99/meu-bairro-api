@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import {
   createCommerceService,
   deleteCommerceService,
+  listBestRatedCommercesService,
   listCommerceByIdService,
   listCommercesByCategoryService,
   listCommercesByNeighborhoodService,
@@ -57,6 +58,23 @@ export const listNewCommerces = async (
   try {
     const { page, perPage, neighborhood } = req.query
     const response = await listNewCommercesService(
+      { page: Number(page), perPage: Number(perPage), neighborhood }
+    )
+
+    res.json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const listBestRatedCommerces = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { page, perPage, neighborhood } = req.query
+    const response = await listBestRatedCommercesService(
       { page: Number(page), perPage: Number(perPage), neighborhood }
     )
 
