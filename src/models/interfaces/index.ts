@@ -60,3 +60,8 @@ export interface ICategory {
   description: string
   imgUrl: string
 }
+
+export interface IBanner {
+  imgUrl: string
+  createdAt?: string
+}
