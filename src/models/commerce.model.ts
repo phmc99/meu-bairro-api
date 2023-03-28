@@ -6,6 +6,7 @@ import { ICommerce } from './interfaces'
 const commerceSchema = new mongoose.Schema<ICommerce>(
   {
     name: { type: String, required: true },
+    description: { type: String, required: true },
     category: { type: String, required: true },
     address: { type: Object },
     neighborhood: { type: String, required: true },

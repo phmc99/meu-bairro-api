@@ -41,6 +41,7 @@ export interface IFeedback {
 
 export interface ICommerce {
   name: string
+  description: string
   category: string
   address: IAddress
   neighborhood: string

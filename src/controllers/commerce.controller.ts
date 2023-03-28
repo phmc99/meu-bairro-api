@@ -17,10 +17,18 @@ export const createCommerce = async (
   next: NextFunction
 ) => {
   try {
-    const { name, category, address, contact, neighborhood } = req.body
+    const {
+      name,
+      description,
+      category,
+      address,
+      contact,
+      neighborhood
+    } = req.body
 
     const commerceBody = {
       name,
+      description,
       category,
       address,
       contact,

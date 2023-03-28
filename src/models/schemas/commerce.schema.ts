@@ -2,6 +2,7 @@ import * as yup from 'yup'
 
 export const commerceSchema = yup.object().shape({
   name: yup.string().required(),
+  description: yup.string().required(),
   category: yup.string().required(),
   neighborhood: yup.string().required(),
   address: yup.object({
