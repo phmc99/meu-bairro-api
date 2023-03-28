@@ -7,6 +7,7 @@ import {
   listCommerces,
   listCommercesByCategory,
   listCommercesByNeighborhood,
+  listCommercesBySearch,
   listNewCommerces,
   updateCommerce
 } from '../controllers/commerce.controller'
@@ -30,6 +31,7 @@ export const commerceRouter = () => {
   router.get('/neighborhood', listCommercesByNeighborhood)
   router.get('/new', listNewCommerces)
   router.get('/bestrated', listBestRatedCommerces)
+  router.get('/search', listCommercesBySearch)
   router.get('/:id', listCommerceById)
   router.patch('/:id', isSuperUser, updateCommerce)
   router.delete('/:id', isSuperUser, deleteCommerce)

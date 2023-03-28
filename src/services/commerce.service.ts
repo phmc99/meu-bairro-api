@@ -132,6 +132,30 @@ export const listCommerceByIdService = async (id: string) => {
   return commerce
 }
 
+export const listBySearchTerm = async (
+  { page, perPage, value }: IListWithFilter
+) => {
+  const commerces = await Commerce.find({})
+
+  if (value != null) {
+    const term = value.toLocaleString().toLowerCase()
+    const filteredCommerces = commerces.filter(
+      item => {
+        const name = item.name.toLowerCase()
+        const description = item.description.toLowerCase()
+        if (name.includes(term) || description.includes(term)) {
+          return item
+        }
+        return false
+      }
+    )
+    console.log(filteredCommerces)
+    return paginateData(filteredCommerces, page, perPage)
+  }
+
+  return paginateData([], page, perPage)
+}
+
 export const updateCommerceService = async (id: string, body: object) => {
   const updatedCommerce = await Commerce.findByIdAndUpdate(id, {
     ...body,

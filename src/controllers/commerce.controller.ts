@@ -3,6 +3,7 @@ import {
   createCommerceService,
   deleteCommerceService,
   listBestRatedCommercesService,
+  listBySearchTerm,
   listCommerceByIdService,
   listCommercesByCategoryService,
   listCommercesByNeighborhoodService,
@@ -137,6 +138,24 @@ export const listCommerceById = async (
     const response = await listCommerceByIdService(id)
 
     res.json({ commerce: response })
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const listCommercesBySearch = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { page, perPage, value } = req.query
+
+    const response = await listBySearchTerm(
+      { page: Number(page), perPage: Number(perPage), value }
+    )
+
+    res.json(response)
   } catch (error) {
     next(error)
   }
