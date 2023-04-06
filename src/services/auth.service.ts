@@ -28,3 +28,24 @@ export const superUserLoginService = async (
 
   return { token }
 }
+
+export const userLoginService = async (
+  email: string, password: string
+) => {
+  const user = await User.findOne({ email })
+
+  if (user == null) {
+    throw new AppError('Usuário não encontrado', 404)
+  }
+
+  if (!bcrypt.compareSync(password, user.password)) {
+    throw new AppError('Email ou Senha incorreta(o)', 401)
+  }
+
+  const token = jwt.sign(
+    { id: user.id, email: user.email },
+    process.env.SECRET as string
+  )
+
+  return { token }
+}
