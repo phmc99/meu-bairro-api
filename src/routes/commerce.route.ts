@@ -14,13 +14,13 @@ import {
 import {
   createFeedback,
   deleteFeedback,
-  listFeedbacks,
-  updateFeedback
+  listFeedbacks
 } from '../controllers/feedback.controller'
 import { isSuperUser } from '../middlewares/auth.middleware'
 import { validate } from '../middlewares/validation.middleware'
 import { commerceSchema } from '../models/schemas/commerce.schema'
 import { feedbackSchema } from '../models/schemas/feedback.schema'
+import { isUserAuth } from '../middlewares/user-auth.middleware'
 
 const router = Router()
 
@@ -35,10 +35,12 @@ export const commerceRouter = () => {
   router.get('/:id', listCommerceById)
   router.patch('/:id', isSuperUser, updateCommerce)
   router.delete('/:id', isSuperUser, deleteCommerce)
-  router.post('/:id/feedback', validate(feedbackSchema), createFeedback)
+  router.post(
+    '/:id/feedback', isUserAuth, validate(feedbackSchema), createFeedback
+  )
   router.get('/:id/feedback', listFeedbacks)
-  router.patch('/feedback/:id', updateFeedback)
-  router.delete('/feedback/:id', deleteFeedback)
+  // router.patch('/feedback/:id', isUserAuth, updateFeedback)
+  router.delete('/feedback/:id', isUserAuth, deleteFeedback)
 
   return router
 }

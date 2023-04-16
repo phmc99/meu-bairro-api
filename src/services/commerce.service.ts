@@ -149,7 +149,6 @@ export const listBySearchTerm = async (
         return false
       }
     )
-    console.log(filteredCommerces)
     return paginateData(filteredCommerces, page, perPage)
   }
 

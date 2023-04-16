@@ -12,7 +12,7 @@ interface UpdateBody {
 
 export const createFeedbackService = async (body: IFeedback) => {
   if (await verifyUserFeedback(body.user._id, body.commerce)) {
-    throw new AppError('Usuário já realizou um feedback', 400)
+    throw new AppError('Você já realizou uma avaliação', 400)
   }
 
   const newFeedback = await Feedback.create({ ...body })
@@ -47,5 +47,5 @@ export const updateFeedbackService = async (id: string, body: UpdateBody) => {
 export const deleteFeedbackService = async (feedbackId: string) => {
   await Feedback.findByIdAndRemove(feedbackId)
 
-  return { message: 'Feedback deletado' }
+  return { message: 'Avaliação deletada' }
 }
