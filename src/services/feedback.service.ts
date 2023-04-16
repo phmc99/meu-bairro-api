@@ -45,7 +45,11 @@ export const updateFeedbackService = async (id: string, body: UpdateBody) => {
 }
 
 export const deleteFeedbackService = async (feedbackId: string) => {
-  await Feedback.findByIdAndRemove(feedbackId)
+  const feedback = await Feedback.findByIdAndRemove(feedbackId)
+
+  if (feedback != null) {
+    await updateTotalRate(feedback.commerce)
+  }
 
   return { message: 'Avaliação deletada' }
 }
