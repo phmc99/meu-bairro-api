@@ -3,6 +3,7 @@ import {
   superUserLoginService,
   userLoginService
 } from '../services/auth.service'
+import { sendRecoveryEmail } from '../services/mailer.service'
 
 export const superUserLogin = async (
   req: Request,
@@ -27,6 +28,20 @@ export const userLogin = async (
     const { email, password } = req.body
     const response = await userLoginService(email, password)
     res.json(response)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const recoveryPassword = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { email } = req.body
+    await sendRecoveryEmail(email)
+    res.json({ message: 'O código foi enviado para o seu e-mail' })
   } catch (error) {
     next(error)
   }

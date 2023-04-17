@@ -49,3 +49,19 @@ export const userLoginService = async (
 
   return { token }
 }
+
+export const generateRecoveryToken = async (email: string) => {
+  const user = await User.findOne({ email })
+
+  if (user == null) {
+    throw new AppError('Usuário não encontrado', 404)
+  }
+
+  const token = jwt.sign(
+    { id: user.id, email: user.email },
+    process.env.SECRET as string,
+    { expiresIn: 600 }
+  )
+
+  return token
+}

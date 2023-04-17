@@ -18,6 +18,8 @@
     "@types/jsonwebtoken": "^8.5.9",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^18.11.9",
+    "@types/nodemailer": "^6.4.7",
+    "@types/nodemailer-express-handlebars": "^4.0.2",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.42.0",
     "dotenv": "^16.0.3",
@@ -41,9 +43,12 @@
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.18.2",
+    "express-handlebars": "^7.0.7",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.29.4",
     "mongoose": "^6.7.1",
+    "nodemailer": "^6.9.1",
+    "nodemailer-express-handlebars": "^6.1.0",
     "yup": "^0.32.11"
   }
 }
