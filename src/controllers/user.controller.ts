@@ -1,5 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import {
+  changePasswordService,
   createUserService,
   deleteUserService,
   listUserByIdService,
@@ -101,6 +102,20 @@ export const verifyToken = async (
     const isValid = await verifyTokenService(token)
 
     res.status(200).json(isValid)
+  } catch (error) {
+    next(error)
+  }
+}
+
+export const changePassword = async (
+  req: Request | any,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { email, newPassword } = req.body
+    const change = await changePasswordService(email, newPassword)
+    res.json(change)
   } catch (error) {
     next(error)
   }

@@ -4,6 +4,7 @@ import { User } from '../models/user.model'
 import { generateDate, paginateData } from '../utils'
 import { isUserExistent, isValidEmail, isValidPhone } from '../utils/user.util'
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcryptjs'
 
 interface UpdateBody {
   phone: string
@@ -100,4 +101,24 @@ export const verifyTokenService = async (token: string) => {
   )
 
   return verify
+}
+
+export const changePasswordService = async (
+  email: string, newPassword: string
+) => {
+  const user = await User.findOne({ email })
+
+  if (user == null) {
+    throw new AppError('Usuário não encontrado', 404)
+  }
+
+  newPassword = await bcrypt.hash(newPassword, 10)
+
+  await User.findByIdAndUpdate(user._id, {
+    password: newPassword,
+    updatedAt: generateDate(),
+    new: true
+  })
+
+  return { message: 'Senha alterada com sucesso!' }
 }
