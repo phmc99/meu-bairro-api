@@ -1,27 +1,54 @@
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap"
-      rel="stylesheet"
-    />
-    <style type="text/css">
-      body { font-family: "Montserrat", sans-serif; }
-    </style>
-    <title>Email</title>
-  </head>
-  <body>
-    <div>
-      <h2>Código de recuperação</h2>
-      <p>Olá! Seu código para recuperação de senha é:</p>
-      <p><strong>{{token}}</strong></p>
-    </div>
-    <p>
-      Desconsidere esse e-mail caso seja um engano.
-    </p>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet" />
+  <style type="text/css">
+    body {
+      font-family: "Montserrat", sans-serif;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .content {
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      margin-top: 20px;
+    }
+
+    .content h2 {
+      font-size: 24px;
+      border-bottom: 2px solid #ddd;
+      padding-bottom: 10px;
+    }
+
+    .content strong {
+      color: #336699;
+      font-size: 14px;
+    }
+
+    .content p:last-of-type {
+      font-size: 14px;
+      color: #999;
+    }
+  </style>
+  <title>Email</title>
+</head>
+
+<body>
+  <div class="content">
+    <h2>Código de recuperação</h2>
+    <p>Olá! Seu código para recuperação de senha é:</p>
+    <p><strong>{{token}}</strong></p>
+  </div>
+  <p>
+    Desconsidere esse e-mail caso seja um engano.
+  </p>
+</body>
+
 </html>
