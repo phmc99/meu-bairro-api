@@ -56,10 +56,12 @@ export const sendRecoveryEmail = async (email: string) => {
   try {
     transport.sendMail(options, function (err, info) {
       if (err != null) {
+        console.log(err)
         throw new Error()
       }
     })
   } catch (error) {
+    console.log(error)
     throw new AppError('Erro ao enviar email', 400)
   }
 }
