@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express'
 import mongoose from 'mongoose'
 
 import AppError from '../errors/app.error'
+import logger from '../logger'
 
 export const errorHandler = (
   error: Error,
@@ -23,7 +24,7 @@ export const errorHandler = (
     })
   }
 
-  console.log(error)
+  logger.error(error)
 
   return res.status(500).json({
     status: 'General error',

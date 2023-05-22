@@ -5,6 +5,7 @@ import hbs, {
 import path from 'path'
 import AppError from '../errors/app.error'
 import { generateRecoveryToken } from './auth.service'
+import logger from '../logger'
 
 export const transport = nodemailer.createTransport({
   host: process.env.MAIL_HOST,
@@ -56,12 +57,12 @@ export const sendRecoveryEmail = async (email: string) => {
   try {
     transport.sendMail(options, function (err, info) {
       if (err != null) {
-        console.log(err)
+        logger.error(err)
         throw new Error()
       }
     })
   } catch (error) {
-    console.log(error)
+    logger.error(error)
     throw new AppError('Erro ao enviar email', 400)
   }
 }
